@@ -10,12 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_17_045504) do
+ActiveRecord::Schema.define(version: 2019_04_17_094028) do
+
+  create_table "semesters", force: :cascade do |t|
+    t.string "name"
+    t.string "credits"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "students", force: :cascade do |t|
     t.string "name"
+    t.integer "age"
+    t.date "dob"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "semester_id"
+    t.index ["semester_id"], name: "index_students_on_semester_id"
   end
 
 end

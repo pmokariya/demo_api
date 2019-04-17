@@ -1,79 +1,55 @@
 class Api::V1::StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
-  # respond_to :json
-
-  # GET /students
-  # GET /students.json
+  
+  # GET http://localhost:3000/api/v1/students
   def index
     @students = Student.all
-    respond_to do |format|
-      format.xml { render(xml: @students) }
-      format.json { render(json: @students ) }
-    end
+    render json: @students
   end
 
-  # GET /students/1
-  # GET /students/1.json
+  # GET http://localhost:3000/api/v1/students/1
   def show
+    render json: @student
   end
 
-  # GET /students/new
   def new
     @student = Student.new
   end
 
-  # GET /students/1/edit
   def edit
   end
 
-  # POST /students
-  # POST /students.json
+  # # PUT http://localhost:3000/api/v1/students?student[name]=student_name&student[age]=1&student[bod]=2019-01-01&semester_id=1
   def create
     @student = Student.new(student_params)
-
-    respond_to do |format|
-      if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
-        format.json { render :show, status: :created, location: @student }
-      else
-        format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    if @student.save
+      render json: @student 
+    else
+      render json: @student.errors, status: :unprocessable_entity 
     end
   end
 
-  # PATCH/PUT /students/1
-  # PATCH/PUT /students/1.json
+  # PATCH http://localhost:3000/api/v1/students/3?student[name]=student_new_name
   def update
-    respond_to do |format|
-      if @student.update(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
-        format.json { render :show, status: :ok, location: @student }
-      else
-        format.html { render :edit }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    if @student.update(student_params)
+      render json: @student 
+    else
+      render json: @student.errors, status: :unprocessable_entity 
     end
   end
 
-  # DELETE /students/1
-  # DELETE /students/1.json
+  # DELETE http://localhost:3000/api/v1/students/2
   def destroy
     @student.destroy
-    respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name)
+      params.require(:student).permit(:name,:age,:bod,:description,:semester_id)
     end
 end

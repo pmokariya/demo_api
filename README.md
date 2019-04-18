@@ -1,25 +1,14 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# demo_api
+Here two set of RestFul APIs (CRUD Operations) For Following two Models
+1) Student Model
+  Student Model has the following fields
+    Name
+    Age
+    DOB
+    Description
+    Semester (FK to Semester Model)
+2) Semester Model
+  Semester Model has the following fields  
+    Name
+    Credits
+    start_date
+    end_date
